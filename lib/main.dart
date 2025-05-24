@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:marti_case/core/init/injection_container.dart' as locator;
+import 'package:marti_case/core/keys/app_keys.dart';
 import 'package:marti_case/feature/map/presenntation/pages/map_page.dart';
 
-void main() {
+void main() async {
+  await locator.init();
   runApp(const MainApp());
 }
 
@@ -10,6 +13,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: MapPage());
+    return MaterialApp(home: MapPage(), scaffoldMessengerKey: AppKeys.scaffoldMessengerKey, navigatorKey: AppKeys.navigatorKey);
   }
 }
