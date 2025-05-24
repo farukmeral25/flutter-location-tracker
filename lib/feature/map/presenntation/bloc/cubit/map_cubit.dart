@@ -1,14 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marti_case/feature/map/data/dto/marker_dto.dart';
 import 'package:marti_case/feature/map/presenntation/bloc/state/map_state.dart';
 
 class MapCubit extends Cubit<MapState> {
   MapCubit() : super(const MapState());
 
-  Future<void> loadMap() async {
+  void initialize() {
+    _loadMap();
+  }
+
+  void initializeController(GoogleMapController controller) {
+    emit(state.copyWith(controller: controller));
+  }
+
+  Future<void> _loadMap() async {
     //TODO: Fetch local to load map data
 
-    emit(state.copyWith(markers: []));
+    emit(state.copyWith(markers: [MarkerDto(id: "1", lat: 40.8793, lng: 29.2581)]));
   }
 
   Future<void> addMarker(MarkerDto marker) async {
