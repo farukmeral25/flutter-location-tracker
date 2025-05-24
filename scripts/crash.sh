@@ -1,0 +1,1 @@
+./Pods/FirebaseCrashlytics/upload-symbols -ai 1:36904690240:ios:f4f07a1e47b5de8362f5a5 -p ios build/app.dSYM
