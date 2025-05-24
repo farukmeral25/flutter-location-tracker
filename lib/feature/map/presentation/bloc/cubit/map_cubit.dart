@@ -3,15 +3,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marti_case/core/utils/app_permission_handler.dart';
 import 'package:marti_case/core/utils/location_manager.dart';
 import 'package:marti_case/feature/map/data/dto/marker_dto.dart';
+import 'package:marti_case/feature/map/domain/repo/i_map_repo.dart';
 import 'package:marti_case/feature/map/presentation/bloc/state/map_state.dart';
 
 class MapCubit extends Cubit<MapState> {
-  MapCubit() : super(const MapState());
+  MapCubit({required IMapRepo mapRepo}) : _mapRepo = mapRepo, super(const MapState());
+
+  final IMapRepo _mapRepo;
 
   Future<void> initialize() async {
     await AppPermissionHandler.requestLocationPermission();
+    await _loadMap();
     LocationManager().startLocationUpdates();
-    _loadMap();
   }
 
   void initializeController(GoogleMapController controller) {
@@ -28,42 +31,25 @@ class MapCubit extends Cubit<MapState> {
   }
 
   Future<void> _loadMap() async {
-    //TODO: Fetch local to load map data
-
-    emit(
-      state.copyWith(
-        markers: [MarkerDto(id: "1", lat: 40.8793, lng: 29.2581)],
-        points: [
-          LatLng(40.8802, 29.2595),
-          LatLng(40.8793, 29.2581),
-          LatLng(40.8807, 29.2571),
-          LatLng(40.8785, 29.2567),
-          LatLng(40.8799, 29.2603),
-          LatLng(40.8778, 29.2589),
-        ],
-      ),
+    final getMarkersEither = await _mapRepo.getMarkers();
+    getMarkersEither.fold(
+      (failure) {
+        emit(state.copyWith(markers: []));
+      },
+      (markers) {
+        emit(state.copyWith(markers: markers));
+      },
     );
-  }
-
-  onPoint() {
-    emit(state.copyWith(points: [LatLng(40.8802, 29.2595), LatLng(40.8793, 29.2581)]));
   }
 
   Future<void> addMarker(MarkerDto marker) async {
     final updatedMarkers = List<MarkerDto>.from(state.markers)..add(marker);
     emit(state.copyWith(markers: updatedMarkers));
-  }
-
-  Future<void> removeMarker(MarkerDto marker) async {
-    final updatedMarkers = List<MarkerDto>.from(state.markers)..remove(marker);
-    emit(state.copyWith(markers: updatedMarkers));
-  }
-
-  Future<void> clearMarkers() async {
-    emit(state.copyWith(markers: []));
+    _mapRepo.saveMarkers(updatedMarkers);
   }
 
   void refreshRoute() {
-    emit(state.copyWith(points: []));
+    emit(state.copyWith(points: [], markers: []));
+    _mapRepo.saveMarkers([]);
   }
 }
