@@ -4,5 +4,5 @@ import 'package:marti_case/feature/map/presentation/bloc/cubit/map_cubit.dart';
 GetIt sl = GetIt.instance;
 
 Future<void> init() async {
-  sl.registerFactory<MapCubit>(() => MapCubit()..initialize());
+  sl.registerLazySingleton<MapCubit>(() => MapCubit()..initialize());
 }

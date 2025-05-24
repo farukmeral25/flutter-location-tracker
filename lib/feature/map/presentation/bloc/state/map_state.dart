@@ -6,5 +6,10 @@ part 'map_state.freezed.dart';
 
 @freezed
 class MapState with _$MapState {
-  const factory MapState({GoogleMapController? controller, @Default([]) List<MarkerDto> markers, @Default([]) List<LatLng> points}) = _MapState;
+  const factory MapState({
+    GoogleMapController? controller,
+    @Default([]) List<MarkerDto> markers,
+    @Default([]) List<LatLng> points,
+    @Default(true) bool isActiveLocationStream,
+  }) = _MapState;
 }

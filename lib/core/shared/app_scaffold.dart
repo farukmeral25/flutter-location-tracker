@@ -39,7 +39,7 @@ class AppScaffold extends StatelessWidget {
       drawer: drawer,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatingActionButton,
-      floatingActionButtonLocation: floatingActionButtonLocation ?? FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButtonLocation: floatingActionButtonLocation ?? FloatingActionButtonLocation.endFloat,
       bottomSheet: bottomSheet,
     );
   }

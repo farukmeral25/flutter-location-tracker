@@ -1,19 +1,30 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marti_case/core/utils/app_permission_handler.dart';
+import 'package:marti_case/core/utils/location_manager.dart';
 import 'package:marti_case/feature/map/data/dto/marker_dto.dart';
 import 'package:marti_case/feature/map/presentation/bloc/state/map_state.dart';
 
 class MapCubit extends Cubit<MapState> {
   MapCubit() : super(const MapState());
 
-  void initialize() {
-    AppPermissionHandler.requestLocationPermission();
+  Future<void> initialize() async {
+    await AppPermissionHandler.requestLocationPermission();
+    LocationManager().startLocationUpdates();
     _loadMap();
   }
 
   void initializeController(GoogleMapController controller) {
     emit(state.copyWith(controller: controller));
+  }
+
+  void toggleLocationStream() {
+    if (state.isActiveLocationStream) {
+      LocationManager().stopLocationUpdates();
+    } else {
+      LocationManager().startLocationUpdates();
+    }
+    emit(state.copyWith(isActiveLocationStream: !state.isActiveLocationStream));
   }
 
   Future<void> _loadMap() async {

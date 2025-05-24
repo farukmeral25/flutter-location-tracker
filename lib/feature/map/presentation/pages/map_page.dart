@@ -12,15 +12,15 @@ class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = sl<MapCubit>();
-    return AppScaffold(
-      appBar: AppBar(
-        title: const Text("User Location Active"),
-        actions: [IconButton(icon: const Icon(Icons.refresh_sharp), onPressed: cubit.refreshRoute)],
-      ),
-      body: BlocBuilder<MapCubit, MapState>(
-        bloc: cubit,
-        builder:
-            (context, state) => GoogleMap(
+    return BlocBuilder<MapCubit, MapState>(
+      bloc: cubit,
+      builder:
+          (context, state) => AppScaffold(
+            appBar: AppBar(
+              title: const Text("User Location Active"),
+              actions: [IconButton(icon: const Icon(Icons.refresh_sharp), onPressed: cubit.refreshRoute)],
+            ),
+            body: GoogleMap(
               initialCameraPosition: const CameraPosition(target: LatLng(40.8793, 29.2581), zoom: 10),
               onMapCreated: (GoogleMapController controller) => cubit.initializeController(controller),
               markers:
@@ -32,14 +32,18 @@ class MapPage extends StatelessWidget {
               },
               mapType: MapType.normal,
               myLocationEnabled: true,
-              myLocationButtonEnabled: true,
+              myLocationButtonEnabled: false,
               compassEnabled: true,
               zoomControlsEnabled: true,
               trafficEnabled: false,
               buildingsEnabled: false,
               indoorViewEnabled: true,
             ),
-      ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () => cubit.toggleLocationStream(),
+              child: Visibility(visible: state.isActiveLocationStream, replacement: Icon(Icons.location_off), child: const Icon(Icons.location_on)),
+            ),
+          ),
     );
   }
 }
