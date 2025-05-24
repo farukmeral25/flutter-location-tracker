@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:marti_case/core/utils/app_permission_handler.dart';
 import 'package:marti_case/feature/map/data/dto/marker_dto.dart';
 import 'package:marti_case/feature/map/presentation/bloc/state/map_state.dart';
 
@@ -7,6 +8,7 @@ class MapCubit extends Cubit<MapState> {
   MapCubit() : super(const MapState());
 
   void initialize() {
+    AppPermissionHandler.requestLocationPermission();
     _loadMap();
   }
 
