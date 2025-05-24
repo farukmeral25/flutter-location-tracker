@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marti_case/core/init/injection_container.dart' as locator;
 import 'package:marti_case/core/keys/app_keys.dart';
-import 'package:marti_case/feature/map/presenntation/pages/map_page.dart';
+import 'package:marti_case/feature/map/presentation/pages/map_page.dart';
 
 void main() async {
   await locator.init();

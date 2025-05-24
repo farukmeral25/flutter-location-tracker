@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marti_case/core/init/injection_container.dart';
 import 'package:marti_case/core/shared/app_scaffold.dart';
-import 'package:marti_case/feature/map/presenntation/bloc/cubit/map_cubit.dart';
-import 'package:marti_case/feature/map/presenntation/bloc/state/map_state.dart';
+import 'package:marti_case/feature/map/presentation/bloc/cubit/map_cubit.dart';
+import 'package:marti_case/feature/map/presentation/bloc/state/map_state.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
