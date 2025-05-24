@@ -27,18 +27,6 @@ class MapPage extends StatelessWidget {
                   state.markers
                       .map((marker) => Marker(markerId: MarkerId(marker.id), position: LatLng(marker.lat, marker.lng), onTap: marker.onTap))
                       .toSet(),
-
-              // markers:
-              //     <Marker>{}..add(
-              //       Marker(
-              //         markerId: const MarkerId("marker"),
-              //         position: const LatLng(40.8793, 29.2581),
-              //         onTap: () async {
-              //           final placeMarkers = await geocoding.placemarkFromCoordinates(40.8793, 29.2581);
-              //           print(placeMarkers.first.street);
-              //         },
-              //       ),
-              //     ),
               mapType: MapType.normal,
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
