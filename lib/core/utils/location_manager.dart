@@ -19,12 +19,9 @@ class LocationManager {
   /// Konum dinlemeyi başlatır
   void startLocationUpdates() async {
     _locationSubscription ??= Geolocator.getPositionStream(
-      //TODO: distanceFilter will be 100 meters in production
-      locationSettings: const LocationSettings(distanceFilter: 0, accuracy: LocationAccuracy.high),
+      locationSettings: const LocationSettings(distanceFilter: 100, accuracy: LocationAccuracy.high),
     ).listen(
       (Position position) {
-        print("Position: ${position.latitude}, ${position.longitude}");
-
         sl<MapCubit>().addMarker(MarkerDto(id: position.timestamp.toIso8601String(), lat: position.latitude, lng: position.longitude));
       },
       onError: (error) {
