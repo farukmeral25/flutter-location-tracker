@@ -15,7 +15,7 @@ class MapPage extends StatelessWidget {
     return AppScaffold(
       appBar: AppBar(
         title: const Text("User Location Active"),
-        actions: [IconButton(icon: const Icon(Icons.location_searching), onPressed: () async {})],
+        actions: [IconButton(icon: const Icon(Icons.refresh_sharp), onPressed: cubit.refreshRoute)],
       ),
       body: BlocBuilder<MapCubit, MapState>(
         bloc: cubit,
@@ -27,6 +27,9 @@ class MapPage extends StatelessWidget {
                   state.markers
                       .map((marker) => Marker(markerId: MarkerId(marker.id), position: LatLng(marker.lat, marker.lng), onTap: marker.onTap))
                       .toSet(),
+              polylines: {
+                Polyline(polylineId: PolylineId("my_route"), points: [...state.points], color: Colors.blue),
+              },
               mapType: MapType.normal,
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
