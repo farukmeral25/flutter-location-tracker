@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:marti_case/core/constants/app_constants.dart';
 import 'package:marti_case/core/init/injection_container.dart';
 import 'package:marti_case/core/shared/app_scaffold.dart';
 import 'package:marti_case/feature/map/presentation/bloc/cubit/map_cubit.dart';
@@ -17,7 +18,7 @@ class MapPage extends StatelessWidget {
       builder:
           (context, state) => AppScaffold(
             appBar: AppBar(
-              title: const Text("User Location Active"),
+              title: const Text(AppConstants.appName),
               actions: [IconButton(icon: const Icon(Icons.refresh_sharp), onPressed: cubit.refreshRoute)],
             ),
             body: GoogleMap(

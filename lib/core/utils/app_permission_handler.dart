@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:marti_case/core/constants/app_strings.dart';
 import 'package:marti_case/core/extensions/location_permission_extension.dart';
 import 'package:marti_case/core/shared/app_snackbar.dart';
 
@@ -8,14 +9,14 @@ class AppPermissionHandler {
     final permissionGranted = await Geolocator.requestPermission();
 
     if (permissionGranted.isDenied) {
-      AppSnackbar(title: "Konum İzinleri Reddedildi", description: "Konum izinlerini vermeniz gerekiyor. Lütfen ayarlardan izinleri verin.").show();
+      AppSnackbar(title: AppStrings.locationPermissionDenied, description: AppStrings.locationPermissionDeniedDescription).show();
     }
     if (permissionGranted.isWhileInUse) {
       AppSnackbar(
-        title: "Konum izni verildi",
-        description: "Arka planda konum izni için ayarlara gidiniz",
+        title: AppStrings.locationPermissionGranted,
+        description: AppStrings.locationPermissionGrantedDescription,
         action: SnackBarAction(
-          label: "Ayarlar",
+          label: AppStrings.locationPermissionSettingsAction,
           onPressed: () {
             Geolocator.openAppSettings();
           },

@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:marti_case/core/constants/app_strings.dart';
 import 'package:marti_case/core/shared/app_snackbar.dart';
 import 'package:marti_case/core/utils/app_permission_handler.dart';
 import 'package:marti_case/core/utils/location_manager.dart';
@@ -29,10 +30,10 @@ class MapCubit extends Cubit<MapState> {
   void toggleLocationStream() {
     if (state.isActiveLocationStream) {
       LocationManager().stopLocationUpdates();
-      AppSnackbar(title: "Konum Takip", description: "Konum takibi durduruldu.").show();
+      AppSnackbar(title: AppStrings.locationTracking, description: AppStrings.locationTrackingStopped).show();
     } else {
       LocationManager().startLocationUpdates();
-      AppSnackbar(title: "Konum Takip", description: "Konum takibi başlatıldı.").show();
+      AppSnackbar(title: AppStrings.locationTracking, description: AppStrings.locationTrackingStarted).show();
     }
     emit(state.copyWith(isActiveLocationStream: !state.isActiveLocationStream));
   }
