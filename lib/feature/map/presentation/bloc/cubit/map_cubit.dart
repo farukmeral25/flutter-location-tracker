@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:marti_case/core/utils/app_permission_handler.dart';
 import 'package:marti_case/core/utils/location_manager.dart';
@@ -15,6 +16,7 @@ class MapCubit extends Cubit<MapState> {
 
   Future<void> initialize() async {
     await AppPermissionHandler.requestLocationPermission();
+    await setCurrentPosition();
     await _loadMap();
     LocationManager().startLocationUpdates();
   }
@@ -55,5 +57,13 @@ class MapCubit extends Cubit<MapState> {
   void refreshRoute() {
     emit(state.copyWith(polylines: {}, markers: []));
     _mapRepo.saveMarkers([]);
+  }
+
+  Future<void> setCurrentPosition() async {
+    Position? position = await LocationManager().getPosition;
+
+    if (position != null) {
+      emit(state.copyWith(cameraPosition: CameraPosition(target: LatLng(position.latitude, position.longitude), zoom: 10)));
+    }
   }
 }

@@ -11,5 +11,8 @@ class MapState with _$MapState {
     @Default([]) List<MarkerDto> markers,
     @Default({}) Set<Polyline> polylines,
     @Default(true) bool isActiveLocationStream,
+    @Default(CameraPosition(target: LatLng(41.0067524, 29.0726565), zoom: 10)) CameraPosition cameraPosition,
   }) = _MapState;
+
+  const MapState._();
 }

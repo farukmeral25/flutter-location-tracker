@@ -33,4 +33,12 @@ class LocationManager {
     await _locationSubscription?.cancel();
     _locationSubscription = null;
   }
+
+  Future<Position?> get getPosition async {
+    try {
+      return await Geolocator.getCurrentPosition(locationSettings: LocationSettings(accuracy: LocationAccuracy.high));
+    } catch (e) {
+      return null;
+    }
+  }
 }
