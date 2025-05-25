@@ -41,7 +41,12 @@ class MapCubit extends Cubit<MapState> {
         emit(state.copyWith(markers: [], polylines: {polyline.copyWith(pointsParam: [])}));
       },
       (markers) {
-        emit(state.copyWith(markers: markers, polylines: {polyline.copyWith(pointsParam: markers.map((e) => LatLng(e.lat, e.lng)).toList())}));
+        emit(
+          state.copyWith(
+            markers: markers,
+            polylines: {polyline.copyWith(pointsParam: markers.map((marker) => LatLng(marker.lat, marker.lng)).toList())},
+          ),
+        );
       },
     );
   }
