@@ -10,15 +10,17 @@ import 'package:marti_case/feature/map/domain/repo/i_map_repo.dart';
 import 'package:marti_case/feature/map/presentation/bloc/state/map_state.dart';
 
 class MapCubit extends Cubit<MapState> {
-  MapCubit({required IMapRepo mapRepo}) : _mapRepo = mapRepo, super(const MapState());
+  MapCubit({required IMapRepo mapRepo}) : _mapRepo = mapRepo, super(const MapState()) {
+    _initialize();
+  }
 
   final IMapRepo _mapRepo;
 
   final polyline = Polyline(polylineId: const PolylineId("my_route"), points: []);
 
-  Future<void> initialize() async {
+  Future<void> _initialize() async {
     await AppPermissionHandler.requestLocationPermission();
-    await setCurrentPosition();
+    await _setCurrentPosition();
     await _loadMap();
     LocationManager().startLocationUpdates();
   }
@@ -71,7 +73,7 @@ class MapCubit extends Cubit<MapState> {
     _mapRepo.saveMarkers([]);
   }
 
-  Future<void> setCurrentPosition() async {
+  Future<void> _setCurrentPosition() async {
     Position? position = await LocationManager().getPosition;
 
     if (position != null) {

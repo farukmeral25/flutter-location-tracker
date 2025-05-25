@@ -14,5 +14,5 @@ Future<void> init() async {
   sl.registerLazySingleton<ILocalRepo>(() => LocalRepo(secureStorage: sl()));
 
   sl.registerLazySingleton<IMapRepo>(() => MapRepo(localRepo: sl()));
-  sl.registerLazySingleton<MapCubit>(() => MapCubit(mapRepo: sl())..initialize());
+  sl.registerLazySingleton<MapCubit>(() => MapCubit(mapRepo: sl()));
 }
