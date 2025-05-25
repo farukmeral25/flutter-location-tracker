@@ -16,7 +16,6 @@ class LocationManager {
 
   StreamSubscription<Position>? _locationSubscription;
 
-  /// Konum dinlemeyi başlatır
   void startLocationUpdates() async {
     _locationSubscription ??= Geolocator.getPositionStream(
       locationSettings: const LocationSettings(distanceFilter: 100, accuracy: LocationAccuracy.high),
@@ -30,7 +29,6 @@ class LocationManager {
     );
   }
 
-  /// Konum dinlemeyi durdurur
   void stopLocationUpdates() async {
     await _locationSubscription?.cancel();
     _locationSubscription = null;

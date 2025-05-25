@@ -9,7 +9,7 @@ class MapState with _$MapState {
   const factory MapState({
     GoogleMapController? controller,
     @Default([]) List<MarkerDto> markers,
-    @Default([]) List<LatLng> points,
+    @Default({}) Set<Polyline> polylines,
     @Default(true) bool isActiveLocationStream,
   }) = _MapState;
 }

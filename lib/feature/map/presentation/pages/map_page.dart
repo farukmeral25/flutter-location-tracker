@@ -27,9 +27,7 @@ class MapPage extends StatelessWidget {
                   state.markers
                       .map((marker) => Marker(markerId: MarkerId(marker.id), position: LatLng(marker.lat, marker.lng), onTap: marker.onTap))
                       .toSet(),
-              polylines: {
-                Polyline(polylineId: PolylineId("my_route"), points: [...state.points], color: Colors.blue),
-              },
+              polylines: state.polylines,
               mapType: MapType.normal,
               myLocationEnabled: true,
               myLocationButtonEnabled: false,

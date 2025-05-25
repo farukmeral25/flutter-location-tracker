@@ -11,6 +11,8 @@ class MapCubit extends Cubit<MapState> {
 
   final IMapRepo _mapRepo;
 
+  final polyline = Polyline(polylineId: const PolylineId("my_route"), points: []);
+
   Future<void> initialize() async {
     await AppPermissionHandler.requestLocationPermission();
     await _loadMap();
@@ -34,22 +36,24 @@ class MapCubit extends Cubit<MapState> {
     final getMarkersEither = await _mapRepo.getMarkers();
     getMarkersEither.fold(
       (failure) {
-        emit(state.copyWith(markers: []));
+        emit(state.copyWith(markers: [], polylines: {polyline.copyWith(pointsParam: [])}));
       },
       (markers) {
-        emit(state.copyWith(markers: markers));
+        emit(state.copyWith(markers: markers, polylines: {polyline.copyWith(pointsParam: markers.map((e) => LatLng(e.lat, e.lng)).toList())}));
       },
     );
   }
 
   Future<void> addMarker(MarkerDto marker) async {
     final updatedMarkers = List<MarkerDto>.from(state.markers)..add(marker);
-    emit(state.copyWith(markers: updatedMarkers));
+    emit(
+      state.copyWith(markers: updatedMarkers, polylines: {polyline.copyWith(pointsParam: updatedMarkers.map((e) => LatLng(e.lat, e.lng)).toList())}),
+    );
     _mapRepo.saveMarkers(updatedMarkers);
   }
 
   void refreshRoute() {
-    emit(state.copyWith(points: [], markers: []));
+    emit(state.copyWith(polylines: {polyline.copyWith(pointsParam: [])}, markers: []));
     _mapRepo.saveMarkers([]);
   }
 }
