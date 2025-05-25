@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:marti_case/core/constants/app_constants.dart';
 import 'package:marti_case/core/init/injection_container.dart';
 import 'package:marti_case/core/shared/app_scaffold.dart';
 import 'package:marti_case/feature/map/presentation/bloc/cubit/map_cubit.dart';
 import 'package:marti_case/feature/map/presentation/bloc/state/map_state.dart';
+import 'package:marti_case/feature/map/presentation/widgets/map_app_bar.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
@@ -17,10 +17,7 @@ class MapPage extends StatelessWidget {
       bloc: cubit,
       builder:
           (context, state) => AppScaffold(
-            appBar: AppBar(
-              title: const Text(AppConstants.appName),
-              actions: [IconButton(icon: const Icon(Icons.refresh_sharp), onPressed: cubit.refreshRoute)],
-            ),
+            appBar: MapAppBar(),
             body: GoogleMap(
               initialCameraPosition: const CameraPosition(target: LatLng(41.0067524, 29.0726565), zoom: 10),
               onMapCreated: (GoogleMapController controller) => cubit.initializeController(controller),
