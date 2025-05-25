@@ -49,7 +49,10 @@ class MapCubit extends Cubit<MapState> {
   Future<void> addMarker(MarkerDto marker) async {
     final updatedMarkers = List<MarkerDto>.from(state.markers)..add(marker);
     emit(
-      state.copyWith(markers: updatedMarkers, polylines: {polyline.copyWith(pointsParam: updatedMarkers.map((e) => LatLng(e.lat, e.lng)).toList())}),
+      state.copyWith(
+        markers: updatedMarkers,
+        polylines: {polyline.copyWith(pointsParam: updatedMarkers.map((marker) => LatLng(marker.lat, marker.lng)).toList())},
+      ),
     );
     _mapRepo.saveMarkers(updatedMarkers);
   }
