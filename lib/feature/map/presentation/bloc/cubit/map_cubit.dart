@@ -53,7 +53,7 @@ class MapCubit extends Cubit<MapState> {
   }
 
   void refreshRoute() {
-    emit(state.copyWith(polylines: {polyline.copyWith(pointsParam: [])}, markers: []));
+    emit(state.copyWith(polylines: {}, markers: []));
     _mapRepo.saveMarkers([]);
   }
 }

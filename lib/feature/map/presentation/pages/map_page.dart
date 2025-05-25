@@ -21,21 +21,21 @@ class MapPage extends StatelessWidget {
               actions: [IconButton(icon: const Icon(Icons.refresh_sharp), onPressed: cubit.refreshRoute)],
             ),
             body: GoogleMap(
-              initialCameraPosition: const CameraPosition(target: LatLng(40.8793, 29.2581), zoom: 10),
+              initialCameraPosition: const CameraPosition(target: LatLng(41.0067524, 29.0726565), zoom: 10),
               onMapCreated: (GoogleMapController controller) => cubit.initializeController(controller),
               markers:
                   state.markers
                       .map((marker) => Marker(markerId: MarkerId(marker.id), position: LatLng(marker.lat, marker.lng), onTap: marker.onTap))
                       .toSet(),
               polylines: state.polylines,
-              mapType: MapType.normal,
+              mapType: MapType.hybrid,
               myLocationEnabled: true,
               myLocationButtonEnabled: false,
-              compassEnabled: true,
+              compassEnabled: false,
               zoomControlsEnabled: true,
               trafficEnabled: false,
               buildingsEnabled: false,
-              indoorViewEnabled: true,
+              indoorViewEnabled: false,
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () => cubit.toggleLocationStream(),

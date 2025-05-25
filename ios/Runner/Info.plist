@@ -32,6 +32,8 @@
 	<string>"MartiCase" platformundan faydalanabilmeniz için konumunuzu kullanmamıza izin verin. Böylece çevrenizdeki etkileşimlere katılabilirsiniz. 🌍</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
