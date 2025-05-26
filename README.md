@@ -1,4 +1,5 @@
 📍 Location Tracking Mobile App
+
 A mobile application that tracks the user's location, adds a marker every 100 meters of movement, and provides address details on marker interaction. It supports background tracking and persistent route storage.
 
 🎯 Purpose
