@@ -19,7 +19,7 @@ class MapPage extends StatelessWidget {
           (context, state) => AppScaffold(
             appBar: MapAppBar(),
             body: GoogleMap(
-              initialCameraPosition: const CameraPosition(target: LatLng(41.0067524, 29.0726565), zoom: 10),
+              initialCameraPosition: state.cameraPosition,
               onMapCreated: (GoogleMapController controller) => cubit.initializeController(controller),
               markers:
                   state.markers
